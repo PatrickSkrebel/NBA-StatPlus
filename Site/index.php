@@ -15,6 +15,8 @@
     <title>Stat+</title>
 </head>
 
+<?php include __DIR__ . '/../include/header.php'; ?>
+
 <body>
     <div name="News">
         <div class="left">

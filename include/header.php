@@ -30,6 +30,7 @@ body {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+  margin: 0px 0 0 100px; /* top right bottom left */
 }
 
 .dropdown {

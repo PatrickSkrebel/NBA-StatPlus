@@ -173,7 +173,7 @@ li {
       </div>
     </div>
   </div> 
-  <a href="../Site/heroku_resources.php">Standings</a>
+  <a href="../StandingsPage/standings.php">Standings</a>
   <a href="../Site/php_resources.php">News</a>
   <a href="../Site/git_resources.php">About</a>
   <a href="https://github.com/PatrickSkrebel/SE_266_PHP/tree/main">My GitHub Repo</a>

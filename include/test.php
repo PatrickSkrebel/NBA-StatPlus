@@ -4,65 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        /* Style for the dropdown content columns */
-        .column {
-            float: left;
-            width: 50%; /* Two columns, each taking up 50% of the width */
-            padding: 5px; /* Adjust the padding as needed */
-            height: 150px; /* Adjust the height as needed */
-            overflow-y: auto;
-        }
-
-        /* Style for the dropdown content */
-        .dropdown-content {
+        .scrollable-div {
+            width: 100%;
+            height: 200px;
+            overflow-x: auto;
+            border: 1px solid #ccc;
+            margin: 20px;
             display: flex;
-            flex-wrap: wrap; /* Allow columns to wrap to the next line */
-            justify-content: space-between; /* Space between the two columns */
-            background-color: #f9f9f9;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-            padding: 5px; /* Adjust the padding as needed */
+            /* Make sure columns are placed next to each other */
+            flex-wrap: nowrap;
         }
 
-        /* Style for the dropdown content links */
-        .dropdown-content a {
-            display: block;
-            color: #333;
+        .column {
+            flex: 1; /* Distribute available space equally among columns */
+            min-width: 0; /* Allow columns to shrink beyond their content size */
+            border-right: 1px solid #ddd; /* Add right border to separate columns */
+            box-sizing: border-box; /* Include border in the total width of the columns */
+        }
+
+        .column:last-child {
+            border-right: none; /* Remove border for the last column */
+        }
+
+        .column p {
             padding: 10px;
-            text-decoration: none;
-        }
-
-        /* Change color on hover */
-        .dropdown-content a:hover {
-            background-color: #ddd;
+            margin: 0;
         }
     </style>
-    <title>Styled Dropdown Example</title>
+    <title>Scrollable Div with PHP</title>
 </head>
 <body>
 
-    <!-- Dropdown container -->
-    <div class="dropdown">
-        <!-- Dropdown button -->
-        <button class="dropbtn">Dropdown</button>
-        
-        <!-- Dropdown content -->
-        <div class="dropdown-content">
-            <!-- Two columns with rows of links -->
-            <div class="column">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-                <!-- ... Repeat links in this column -->
-            </div>
-            
-            <div class="column">
-                <a href="#">Link 11</a>
-                <a href="#">Link 12</a>
-                <!-- ... Repeat links in this column -->
-            </div>
-        </div>
+    <div class="scrollable-div" id="myScrollableDiv">
+        <?php
+        // Your PHP content goes here
+        for ($i = 1; $i <= 6; $i++) {
+            echo "<div class='column'><p>Content $i</p></div>";
+        }
+        ?>
     </div>
+
+    <script>
+        // Add a scroll wheel event listener to the div with the id "myScrollableDiv"
+        document.getElementById('myScrollableDiv').addEventListener('wheel', function (event) {
+            // Adjust the scroll speed based on your needs
+            this.scrollLeft += event.deltaY * 0.5;
+            event.preventDefault();
+        });
+    </script>
 
 </body>
 </html>

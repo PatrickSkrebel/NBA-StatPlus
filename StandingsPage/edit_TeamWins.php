@@ -18,20 +18,23 @@
     $error = "";
 
     //Delete the record
-    if(isset($_POST['deleteTeam'])){
-        $id = filter_input(INPUT_POST, 'TeamId');
-        deletePatient($id);
-        header('Location: standings.php');
-    }
+    // if(isset($_POST['deleteTeam'])){
+    //     $id = filter_input(INPUT_POST, 'TeamID');
+    //     deletePatient($id);
+    //     header('Location: standings.php');
+    // }
 
     $action = "";
     //IF COMING FROM A GET REQUEST, ASSIGN OUR ACTION AND ID!
     if(isset($_GET['action'])){
         $action = filter_input(INPUT_GET, 'action');
-        $id = filter_input(INPUT_GET, 'TeamId');
+        $id = filter_input(INPUT_GET, 'teamID');
+        var_dump($action);
+        var_dump($id);
 
         if($action == "Update"){
-            $team = getTeam($TeamID, $TeamName, $Wins, $Losses);
+            $team = getTeam($id);
+            var_dump($team);
             $TeamName = $team["TeamName"];
             $Wins = $team["wins"];
             $Losses = $team["losses"];
@@ -45,29 +48,27 @@
         //UPDATE TEAM WAS SUBMITTED IN FORM -> GRAB SUBMITTED VALUES AND PASS TO THE updateTeam() METHOD!
     }elseif (isset($_POST['Update_team'])){
         $action = filter_input(INPUT_POST, 'action');
-        $id = filter_input(INPUT_POST, 'person_id');
-        $fName = filter_input(INPUT_POST, 'firstName');
-        $lName = filter_input(INPUT_POST, 'lastName');
-        $married = filter_input(INPUT_POST, 'married');
-        $birthDate = filter_input(INPUT_POST, 'birthdate');
-        $height = filter_input(INPUT_POST, 'height');
-        $weight = filter_input(INPUT_POST, 'weight');
+        $id = filter_input(INPUT_POST, 'teamID');
+        $TeamName = filter_input(INPUT_POST, 'TeamName');
+        $Wins = filter_input(INPUT_POST, 'wins');
+        $Losses = filter_input(INPUT_POST, 'losses');
 
-        updatePatient($id, $fName, $lName, $married, $birthDate, $height, $weight);
-        header('Location: view_people.php');
+        var_dump($id, $TeamName, $Wins, $Losses);
+
+        updateTeam($id, $TeamName, $Wins, $Losses);
+        header('Location: standings.php');
 
         //ADD TEAM WAS SUBMITTED IN FORM -> GRAB SUBMITTED VALUES AND PASS TO THE addTeam() METHOD!
     }elseif (isset($_POST['Add_people'])){
         $action = filter_input(INPUT_POST, 'action');
-        $fName = filter_input(INPUT_POST, 'firstName');
-        $lName = filter_input(INPUT_POST, 'lastName');
-        $married = filter_input(INPUT_POST, 'married');
-        $birthDate = filter_input(INPUT_POST, 'birthdate');
-        $height = filter_input(INPUT_POST, 'height');
-        $weight = filter_input(INPUT_POST, 'weight');
+        $firstName = filter_input(INPUT_POST, 'FirstName');
+        $lastName = filter_input(INPUT_POST, 'LastName');
+        $position = filter_input(INPUT_POST, 'Position');
+        $teamid = filter_input(INPUT_POST, 'teamID');
+        $birthdate = filter_input(INPUT_POST, 'Birthdate');
         
-        addPeople($fName, $lName, $married, $birthDate, $height, $weight);
-        header('Location: view_people.php');
+        addPlayer($firstName, $lastName, $position, $teamid,$birthdate);
+        header('Location: standings.php');
     }
 
 ?>
@@ -93,82 +94,37 @@
     <!-- ADD TEAM FORM -->
     <h2><?= $action; ?> NBA STAT WIN/LOSS</h2>
 
-    <form name="team" method="post" action="edit_people.php">
+    <form name="team" method="post" action="edit_TeamWins.php">
         
         <!--FORM-->
         <div class="wrapper">
-            <input type="hidden" name="teamid" value="<?= $id; ?>" />
+            <input type="hidden" name="teamID" value="<?= $id; ?>" />
             <div class="label">
-                <label>First Name:</label>
+                <label>Team Name:</label>
             </div>
             <div>
-                <input type="text" name="firstName" value="<?= $fName; ?>" />
-            </div>
-            <div class="label">
-                <label>Last Name:</label>
-            </div>
-            <div>
-                <input type="text" name="lastName" value="<?= $lName; ?>" />
+                <input type="text" name="TeamName" value="<?= $TeamName; ?>" />
             </div>
             <div class="label">
-                <label>Married:</label>
+                <label>Wins:</label>
             </div>
             <div>
-            <input type="text" name="married" value="<?= $married; ?>" />
+                <input type="number" name="wins" value="<?= $Wins; ?>" />
             </div>
             <div class="label">
-                <label>Birthdate:</label>
+                <label>Losses:</label>
             </div>
             <div>
-                <input type="text" name="birthdate" value="<?= $birthDate; ?>" />
-            </div>
-            <div class="label">
-                <label>Height:</label>
-            </div>
-            <div>
-                <input type="text" name="height" value="<?= $height; ?>" />
-            </div>
-            <div class="label">
-                <label>Weight:</label>
-            </div>
-            <div>
-                <input type="text" name="weight" value="<?= $weight; ?>" />
-            </div>
-            <div>
-                &nbsp;
+                <input type="number" name="losses" value="<?= $Losses; ?>" />
             </div>
             <div>
                 <!-- WE CAN USE OUR 'ACTION' VALUE FROM THE GET RESULT TO MANIPULATE THE FORM! -->
-                <input type="submit" name="<?= $action; ?>_team" value="<?= $action; ?> Patients Information" />
-            </div>
-            <div>
-                <input type="hidden" name="teamId" value="<?= $id;?>"/>
-                <input class="" type="submit" name="deleteTeam" value="Delete" />
+                <input type="submit" name="<?= $action; ?>_team" value="<?= $action; ?> NFL Team" />
             </div>
            
         </div>
 
     </form>
-
-
-    <?php foreach ($people as $p):                 
-            ?>
-                <tr>
-                    <td>
-                        <!-- FORM FOR DELETE FUNCTIONALITY -->
-                        <form action='standings.php' method='post'>
- 
-                            
- 
-                        </form>
-                    </td>
-                  
-                </tr>
-            <?php endforeach; ?>
-    <p>
-       
-    </p>
-
 
     </body>
 </html>

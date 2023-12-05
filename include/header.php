@@ -94,6 +94,11 @@ li {
   font-family: "Times New Roman", Times, serif;
   font-size: "16px;";
 }
+
+.data:{
+        margin: 100px 0 0 159px; /* top right bottom left */
+    }
+
 </style>
 </head>
 <body>
@@ -109,66 +114,66 @@ li {
       <div class="column">
         <div class="row">
           <h3>Atlantic</h3>
-          <a href="#">Boston Celtics</a>
-          <a href="#">Brooklyn Nets</a>
-          <a href="#">New York Knicks</a>
-          <a href="#">Philidelphia 76rs</a>
-          <a href="#">Toronto Raptors</a>
+          <a href="../RosterPage/roster.php?TeamID=2">Boston Celtics</a>
+          <a href="../RosterPage/roster.php?TeamID=3">Brooklyn Nets</a>
+          <a href="../RosterPage/roster.php?TeamID=20">New York Knicks</a>
+          <a href="../RosterPage/roster.php?TeamID=23">Philidelphia 76rs</a>
+          <a href="../RosterPage/roster.php?TeamID=28">Toronto Raptors</a>
         </div>
       </div>
       <!-- Central Div -->
       <div class="column">
         <div class="row">
           <h3>Central</h3>
-          <a href="#">Chicago Bulls</a>
-          <a href="#">Cleveland Cavaliers</a>
-          <a href="#">Detriot Pistons</a>
-          <a href="#">Indiana Pacers</a>
-          <a href="#">Milwaulke Bucks</a>
+          <a href="../RosterPage/roster.php?TeamID=5">Chicago Bulls</a>
+          <a href="../RosterPage/roster.php?TeamID=6">Cleveland Cavaliers</a>
+          <a href="../RosterPage/roster.php?TeamID=9">Detriot Pistons</a>
+          <a href="../RosterPage/roster.php?TeamID=12">Indiana Pacers</a>
+          <a href="../RosterPage/roster.php?TeamID=17">Milwaulke Bucks</a>
         </div>
       </div>
       <!-- Northwest Div -->
       <div class="column">
         <div class="row">
           <h3>NorthWest</h3>
-          <a href="#">Denver Nuggets</a>
-          <a href="#">Minnestoa Timberwolves</a>
-          <a href="#">Oklahoma City Thunder</a>
-          <a href="#">Portland Trailblazers</a>
-          <a href="#">Utah Jazz</a>
+          <a href="../RosterPage/roster.php?TeamID=8">Denver Nuggets</a>
+          <a href="../RosterPage/roster.php?TeamID=18">Minnestoa Timberwolves</a>
+          <a href="../RosterPage/roster.php?TeamID=21">Oklahoma City Thunder</a>
+          <a href="../RosterPage/roster.php?TeamID=25">Portland Trailblazers</a>
+          <a href="../RosterPage/roster.php?TeamID=29">Utah Jazz</a>
         </div>
       </div>
       <!-- Pacific Div -->
       <div class="column">
         <div class="row">
           <h3>Pacific</h3>
-          <a href="#">Golden State Warriors</a>
-          <a href="#">LA Clippers</a>
-          <a href="#">Los Angeles Lakers</a>
-          <a href="#">Phoenix Suns</a>
-          <a href="#">Sacramento Kings</a>
+          <a href="../RosterPage/roster.php?TeamID=10">Golden State Warriors</a>
+          <a href="../RosterPage/roster.php?TeamID=13">Los Angeles Clippers</a>
+          <a href="../RosterPage/roster.php?TeamID=14">Los Angeles Lakers</a>
+          <a href="../RosterPage/roster.php?TeamID=24">Phoenix Suns</a>
+          <a href="../RosterPage/roster.php?TeamID=26">Sacramento Kings</a>
         </div>
       </div>
       <!-- Southeast Div -->
       <div class="column">
         <div class="row">
           <h3>SouthEast</h3>
-          <a href="#">Atlanta Hawks</a>
-          <a href="#">Charotte Hornets</a>
-          <a href="#">Miami Heat</a>
-          <a href="#">Orlando Magic</a>
-          <a href="#">Washington Wizards</a>
+          <a href="../RosterPage/roster.php?TeamID=1">Atlanta Hawks</a>
+          <a href="../RosterPage/roster.php?TeamID=4">Charotte Hornets</a>
+          <a href="../RosterPage/roster.php?TeamID=16">Miami Heat</a>
+          <a href="../RosterPage/roster.php?TeamID=22">Orlando Magic</a>
+          <a href="../RosterPage/roster.php?TeamID=30">Washington Wizards</a>
         </div>
       </div>
       <!-- Southwest Div -->
       <div class="column">
         <div class="row">
           <h3>SouthWest</h3>
-          <a href="#">Dallas Mavericks</a>
-          <a href="#">Houston Rockets</a>
-          <a href="#">Memphis Grizzlies</a>
-          <a href="#">New Orleans Pelicans</a>
-          <a href="#">San Antonio Spurs</a>
+          <a href="../RosterPage/roster.php">Dallas Mavericks</a>
+          <a href="../RosterPage/roster.php">Houston Rockets</a>
+          <a href="../RosterPage/roster.php">Memphis Grizzlies</a>
+          <a href="../RosterPage/roster.php">New Orleans Pelicans</a>
+          <a href="../RosterPage/roster.php">San Antonio Spurs</a>
         </div>
       </div>
     </div>

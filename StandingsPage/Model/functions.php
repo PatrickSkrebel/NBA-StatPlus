@@ -20,20 +20,43 @@
     }
 
     //Add a team to database
-    function addPlayer ($firstName, $lastName, $birthdate, $teamid,$position,$wins,$losses) {
+    function addPlayer ($firstName, $lastName, $position, $teamid,$birthdate) {
         global $db;
         $results = "Not added";
 
-        $stmt = $db->prepare("INSERT INTO nbaplayers SET firstName = :fN, lastName = :lN, birthdate = :bd, teamid = :h, position = :p wins = :w, losses = :ls");
+        $stmt = $db->prepare("INSERT INTO nbaplayers SET FirstName = :fN, LastName = :lN,teamid = :h,position = :p, birthdate = :bd");
 
         $binds = array(
             ":fN" => $firstName,
-            ":lN" => $lastName,
-            ":bd" => $birthdate,
-            ":h" => $teamid,
+            ":lN" => $lastName,            
             ":p" => $position,
-            ":w" => $wins,
-            ":ls" => $losses
+            ":h" => $teamid,
+            ":bd" => $birthdate,
+
+           
+        );
+        
+        
+        if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
+            $results = 'Data Added';
+        }
+        
+        return ($results);
+    }
+
+       //Add a team to database
+       function addTeam ($TeamName, $City,$Conference, $Wins, $Losses) {
+        global $db;
+        $results = "Not added";
+
+        $stmt = $db->prepare("INSERT INTO nbaTeams SET TeamName = :tN, City = :c, Conference = :cf,wins = :w, losses = :l");
+
+        $binds = array(
+            ":tN" => $TeamName,
+            ":c" => $City,            
+            ":cf" => $Conference,
+            ":w" => $Wins,
+            ":l" => $Losses,
         );
         
         
@@ -58,6 +81,26 @@
         $stmt->bindValue(':bd', $birthdate);
         $stmt->bindValue(':td', $teamid);
         $stmt->bindValue(':p', $position);
+
+      
+        if ($stmt->execute() && $stmt->rowCount() > 0) {
+            $results = 'Data Updated';
+        }
+        
+        return ($results);
+    }
+
+    function updateTeam ($TeamID, $TeamName, $Wins, $Losses) {
+        global $db;
+
+        $results = "";
+        $sql = "UPDATE nbaTeams SET TeamName = :tN, wins = :w, losses = :l WHERE TeamID=:TeamID ";
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':TeamID', $TeamID);
+        $stmt->bindValue(':tN', $TeamName);
+        $stmt->bindValue(':w', $Wins);
+        $stmt->bindValue(':l', $Losses);
 
       
         if ($stmt->execute() && $stmt->rowCount() > 0) {
@@ -99,12 +142,12 @@
          return ($result);
     }
 
-    function getTeam($TeamID, $TeamName){
+    function getTeam($TeamID){
 
         global $db;
         
         $result = [];
-        $stmt = $db->prepare("SELECT * FROM nbateams WHERE TeamID=:TeamID");
+        $stmt = $db->prepare("SELECT * FROM nbaTeams WHERE TeamID=:TeamID");
         $stmt->bindValue(':TeamID', $TeamID);
        
         if ( $stmt->execute() && $stmt->rowCount() > 0 ) {
@@ -151,7 +194,7 @@
         }
 
 
-        $sql .= " ORDER BY wins";
+        $sql .= " ORDER BY wins DESC";
 
         $results = array();
 

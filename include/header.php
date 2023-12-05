@@ -14,13 +14,17 @@ p.a {
 body {
   font-family: "Times New Roman", Times, serif;
   font-size: "16px;";
-  margin-left: 20px;
-  margin-right: 10px;
+  margin-left: 500px;
+  margin-right: 20px;
+  height: 1000px;
+  width: 1000px;
+  border: 2px solid #333;
 }
 .navbar {
   overflow: hidden;
   background-color: #333;
   font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
 }
 
 .navbar a {
@@ -30,7 +34,6 @@ body {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  margin: 0px 0 0 100px; /* top right bottom left */
 }
 
 .dropdown {
@@ -57,7 +60,7 @@ body {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: #0774AA;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
@@ -72,8 +75,15 @@ body {
   text-align: left;
 }
 
+.column {
+  float: left;
+  width: 26%;
+  height: 275px; /* Adjust the height as needed */
+  overflow-y: auto;
+}
+
 .dropdown-content a:hover {
-  background-color: #ddd;
+  background-color: #3307AA;
 }
 
 .show {
@@ -95,7 +105,72 @@ li {
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content" id="myDropdown">
-      <a href="../">Assignment 1 - Fizz Buzz</a>
+      <!-- Atlantic Div -->
+      <div class="column">
+        <div class="row">
+          <h3>Atlantic</h3>
+          <a href="#">Boston Celtics</a>
+          <a href="#">Brooklyn Nets</a>
+          <a href="#">New York Knicks</a>
+          <a href="#">Philidelphia 76rs</a>
+          <a href="#">Toronto Raptors</a>
+        </div>
+      </div>
+      <!-- Central Div -->
+      <div class="column">
+        <div class="row">
+          <h3>Central</h3>
+          <a href="#">Chicago Bulls</a>
+          <a href="#">Cleveland Cavaliers</a>
+          <a href="#">Detriot Pistons</a>
+          <a href="#">Indiana Pacers</a>
+          <a href="#">Milwaulke Bucks</a>
+        </div>
+      </div>
+      <!-- Northwest Div -->
+      <div class="column">
+        <div class="row">
+          <h3>NorthWest</h3>
+          <a href="#">Denver Nuggets</a>
+          <a href="#">Minnestoa Timberwolves</a>
+          <a href="#">Oklahoma City Thunder</a>
+          <a href="#">Portland Trailblazers</a>
+          <a href="#">Utah Jazz</a>
+        </div>
+      </div>
+      <!-- Pacific Div -->
+      <div class="column">
+        <div class="row">
+          <h3>Pacific</h3>
+          <a href="#">Golden State Warriors</a>
+          <a href="#">LA Clippers</a>
+          <a href="#">Los Angeles Lakers</a>
+          <a href="#">Phoenix Suns</a>
+          <a href="#">Sacramento Kings</a>
+        </div>
+      </div>
+      <!-- Southeast Div -->
+      <div class="column">
+        <div class="row">
+          <h3>SouthEast</h3>
+          <a href="#">Atlanta Hawks</a>
+          <a href="#">Charotte Hornets</a>
+          <a href="#">Miami Heat</a>
+          <a href="#">Orlando Magic</a>
+          <a href="#">Washington Wizards</a>
+        </div>
+      </div>
+      <!-- Southwest Div -->
+      <div class="column">
+        <div class="row">
+          <h3>SouthWest</h3>
+          <a href="#">Dallas Mavericks</a>
+          <a href="#">Houston Rockets</a>
+          <a href="#">Memphis Grizzlies</a>
+          <a href="#">New Orleans Pelicans</a>
+          <a href="#">San Antonio Spurs</a>
+        </div>
+      </div>
     </div>
   </div> 
   <a href="../Site/heroku_resources.php">Standings</a>

@@ -95,6 +95,23 @@ li {
   font-size: "16px;";
 }
 
+.left {
+        margin: 100px 0 0 159px; /* top right bottom left */
+        word-wrap: break-word; /* Add word-wrap property */
+        width: 300px;
+        height: 200px;
+        border: 2px solid #333;
+        text-align: center;
+    }
+    .right {
+        margin: -240px 0 0 550px; /* top right bottom left */
+        word-wrap: break-word; /* Add word-wrap property */
+        width: 300px;
+        height: 200px;
+        border: 2px solid #333;
+        text-align: center;
+    }
+
 .data:{
         margin: 100px 0 0 159px; /* top right bottom left */
     }

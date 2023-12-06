@@ -10,6 +10,12 @@ p.a {
   
 }
 
+/* Roster Page */
+.roster{
+  text-align: center;
+}
+
+/* Dropdown styles */
 
 body {
   font-family: "Times New Roman", Times, serif;
@@ -18,7 +24,8 @@ body {
   margin-right: 20px;
   height: 1000px;
   width: 1000px;
-  border: 2px solid #333;
+  border: 5px solid #333;
+  background-color: #BEC3B7;
 }
 .navbar {
   overflow: hidden;
@@ -95,6 +102,7 @@ li {
   font-size: "16px;";
 }
 
+/* Home Page Design */
 .left {
         margin: 100px 0 0 159px; /* top right bottom left */
         word-wrap: break-word; /* Add word-wrap property */
@@ -112,9 +120,25 @@ li {
         text-align: center;
     }
 
-.data:{
-        margin: 100px 0 0 159px; /* top right bottom left */
+    /* Standings Page */
+  .data{
+       
+        margin: 40px 0 0px 75px; /* top right bottom left */
     }
+
+    .team-row {
+        border: 1px solid #ccc; /* Add a border to separate rows */
+        padding: 10px; /* Add padding for spacing */
+        margin-bottom: 10px; /* Add margin for additional separation */
+    }
+
+    /* Style for the Edit link */
+    .edit-link {
+        color: blue;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
 
 </style>
 </head>

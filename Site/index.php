@@ -1,7 +1,7 @@
 
 <?php include __DIR__ . '/../include/header.php'; ?>
 
-<body>
+
     <div name="News">
         <div class="left">
             <h3>First News Sections</h3>

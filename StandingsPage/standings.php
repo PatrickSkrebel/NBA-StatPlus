@@ -31,13 +31,11 @@ session_start();
         <label>Conference</label><input type="text" name="Conference">
         <input type="submit" name="searchBtn" value="Search">
 
-        <br>
-
         <!--<a href="add_people.php">Add Person</a>-->
          <!-- Begin table of teams -->
          <table class="data">
         <thead>
-            <tr >            
+            <tr>            
                 <th>TeamName</th>
                 <th>City</th>              
                 <th>Conference</th>
@@ -51,13 +49,15 @@ session_start();
         <tbody>
 
         <?php foreach ($teams as $t): ?>
-            <tr>
+            <tr class="team-row">
                 <td><?= $t['TeamName'];?></td>
                 <td><?= $t['City'];?></td>                
                 <td><?= $t['Conference'];?></td>
                 <td><?= $t['wins'];?></td>
                 <td><?= $t['losses'];?></td>
-                <td><a href="edit_TeamWins.php?action=Update&teamID=<?= $t['TeamID']; ?>">Edit</a></td>    
+                <td>
+                    <a href="edit_TeamWins.php?action=Update&teamID=<?= $t['TeamID']; ?>" class="edit-link">Edit</a>
+                </td>    
             </tr>
         <?php endforeach; ?>
         

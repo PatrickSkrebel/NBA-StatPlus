@@ -1,8 +1,8 @@
+
 <?php
 // Assuming you have the $db connection established
 include __DIR__ . '/../include/header.php';
 require_once "db.php";
-
 
 if (isset($_GET['TeamID'])) {
     $selectedTeamId = $_GET['TeamID'];
@@ -20,16 +20,26 @@ if (isset($_GET['TeamID'])) {
     $players = $stmtPlayers->fetchAll(PDO::FETCH_ASSOC);
 
     // Display the roster
-    echo "<h1>{$teamInfo['TeamName']} Roster</h1>";
-    echo "<h2>Conference: {$teamInfo['Conference']}</h2>";
-    echo "<ul>";
-    foreach ($players as $player) {
-        echo "<li>{$player['FirstName']}</li>";
-    }
-    echo "</ul>";
+    ?>
+
+    <h1 class="roster"><?= $teamInfo['TeamName'] ?> Roster</h1>
+    <h2 class="roster">Conference: <?= $teamInfo['Conference'] ?></h2>
+    <ul>
+        <?php foreach ($players as $player): ?>
+            <li><?= $player['FirstName']?> <?=$player['LastName']?> - [<?=$player['Position'] ?> - <?=$player['Birthdate'] ?>]</li>
+        <?php endforeach; ?>
+    </ul>
+
+    <?php
 } else {
     // Redirect back to the main page if teamid is not set
     header("Location: index.php");
     exit();
 }
+
 ?>
+
+<!-- Add your additional HTML content or scripts here -->
+
+</body>
+</html>

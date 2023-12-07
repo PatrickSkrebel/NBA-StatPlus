@@ -67,7 +67,7 @@
         $teamid = filter_input(INPUT_POST, 'teamID');
         $birthdate = filter_input(INPUT_POST, 'Birthdate');
         
-        addPlayer($firstName, $lastName, $position, $teamid,$birthdate);
+        addTeam($TeamName, $City,$Conference, $Wins, $Losses);
         header('Location: standings.php');
     }
 
@@ -119,7 +119,7 @@
             </div>
             <div>
                 <!-- WE CAN USE OUR 'ACTION' VALUE FROM THE GET RESULT TO MANIPULATE THE FORM! -->
-                <input type="submit" name="<?= $action; ?>_team" value="<?= $action; ?> NFL Team" />
+                <input type="submit" name="<?= $action; ?>_team" value="<?= $action; ?> NBA Team" />
             </div>
            
         </div>

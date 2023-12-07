@@ -184,7 +184,7 @@
         $sql =  "SELECT * FROM nbateams WHERE 0=0";
 
         if ($TeamName != "") {
-            $sql .= " AND $TeamName LIKE :TeamName";
+            $sql .= " AND TeamName LIKE :TeamName";
             $binds['TeamName'] = '%'.$TeamName.'%';
         }
 

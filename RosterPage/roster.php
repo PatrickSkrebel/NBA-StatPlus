@@ -2,7 +2,7 @@
 <?php
 // Assuming you have the $db connection established
 include __DIR__ . '/../include/header.php';
-require_once "db.php";
+include __DIR__ . "/Model/db.php";
 
 if (isset($_GET['TeamID'])) {
     $selectedTeamId = $_GET['TeamID'];
@@ -22,11 +22,13 @@ if (isset($_GET['TeamID'])) {
     // Display the roster
     ?>
 
-    <h1 class="roster"><?= $teamInfo['TeamName'] ?> Roster</h1>
-    <h2 class="roster">Conference: <?= $teamInfo['Conference'] ?></h2>
-    <ul>
+    <h1 class="rosterTitle"><?= $teamInfo['TeamName'] ?> Roster</h1>
+    <h2 class="rosterTitle">Conference: <?= $teamInfo['Conference'] ?></h2>
+    <ul class="roster">
         <?php foreach ($players as $player): ?>
-            <li><?= $player['FirstName']?> <?=$player['LastName']?> - [<?=$player['Position'] ?> - <?=$player['Birthdate'] ?>]</li>
+            <tr>
+            <td><?= $player['FirstName']?> <?=$player['LastName']?> - [<?=$player['Position'] ?> - <?=$player['Birthdate'] ?>]<td></br>
+            </tr>
         <?php endforeach; ?>
     </ul>
 

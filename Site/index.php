@@ -1,5 +1,10 @@
 
-<?php include __DIR__ . '/../include/header.php'; ?>
+<?php 
+session_start();
+include __DIR__ . '/../include/header.php'; 
+
+
+?>
 
 
     <div name="News">

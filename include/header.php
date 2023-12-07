@@ -144,6 +144,10 @@ li {
         cursor: pointer;
     }
 
+    /* Login Page */
+    .login{
+      margin: 0px 0px 0px 850px; /* top right bottom left */
+    }
 
 </style>
 </head>

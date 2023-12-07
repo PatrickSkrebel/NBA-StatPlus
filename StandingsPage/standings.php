@@ -12,6 +12,11 @@ session_start();
         $Conference = "";
     }
 
+    if(isset($_POST["logoutBtn"])){
+        session_unset(); 
+        session_destroy();
+    }
+
     $teams = searchTeam($TeamName, $Conference);
 
     $rank = 0;
@@ -22,7 +27,9 @@ session_start();
     <div class="container">
 
     <div class="data">
+
         <h1>NBA Standings</h1>
+
 
         <form method="POST" name="search">
             <label>Team</label><input type="text" name="TeamName">
@@ -30,8 +37,6 @@ session_start();
             <input type="submit" name="searchBtn" value="Search">
         </form>
 
-
-        <!--<a href="add_people.php">Add Person</a>-->
          <!-- Begin table of teams -->
          <table class="data">
         <thead>
@@ -42,7 +47,16 @@ session_start();
                 <th>Conference</th>
                 <th>Wins</th>
                 <th>Losses</th>
-                <th>Edit</th>
+                <?php if(isset($_SESSION['user'])): ?>
+                    <th>Edit</th>
+                    <form method="POST" name="logout">
+                        <input type="submit" name="logoutBtn" value="Logout">
+                    </form>
+
+                <?php else: ?>
+                    <a href="login.php" class="login">Login</a>
+                <?php endif; ?>
+
                 <!-- make this appear when you log in -->
             </tr>
         </thead>
@@ -57,9 +71,11 @@ session_start();
                 <td><?= $t['Conference'];?></td>
                 <td><?= $t['wins'];?></td>
                 <td><?= $t['losses'];?></td>
-                <td>
+                <?php if(isset($_SESSION['user'])): ?>
                     <a href="edit_TeamWins.php?action=Update&teamID=<?= $t['TeamID']; ?>" class="edit-link">Edit</a>
-                </td>    
+                <?php else: ?>
+
+                <?php endif; ?>
             </tr>
         <?php endforeach; ?>
         

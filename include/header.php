@@ -149,6 +149,13 @@ li {
       margin: 0px 0px 0px 850px; /* top right bottom left */
     }
 
+    /* Logout Page */
+    .logout{
+      margin: 0 0 0 100px; /* top right bottom left */
+    }
+
+
+
 </style>
 </head>
 <body>
@@ -239,8 +246,14 @@ li {
   <a href="../Site/php_resources.php">News</a>            <!-- Takes you to the news page -->
   <a href="../Site/git_resources.php">About</a>
   <a href="https://github.com/PatrickSkrebel/SE_266_PHP/tree/main">My GitHub Repo</a>
+  <?php if(isset($_SESSION[`user`])): ?>
+    <a href="../StandingsPage/login.php">Logout</a>
+      <?php else: ?>
+      <a href="../StandingsPage/login.php">Login</a>
+  <?php endif; ?>
 </div>
 
+<!--<div class="center-div"></div> -->
 
 <script>
 /* When the user clicks on the button, 

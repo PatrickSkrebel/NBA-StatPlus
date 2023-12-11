@@ -40,7 +40,8 @@ session_start();
          <!-- Begin table of teams -->
          <table class="data">
         <thead>
-            <tr>            
+            <tr>           
+                <!-- Display The column rows --> 
                 <th>Rank</th>
                 <th>TeamName</th>
                 <th>City</th>              
@@ -49,12 +50,12 @@ session_start();
                 <th>Losses</th>
                 <?php if(isset($_SESSION['user'])): ?>
                     <th>Edit</th>
-                    <form method="POST" name="logout">
+                    <form method="POST" name="logout" class="logout">
                         <input type="submit" name="logoutBtn" value="Logout">
                     </form>
 
                 <?php else: ?>
-                    <a href="login.php" class="login">Login</a>
+                   
                 <?php endif; ?>
 
                 <!-- make this appear when you log in -->
@@ -62,6 +63,7 @@ session_start();
         </thead>
         <tbody>
 
+        <!-- The foreach will go through all the data is the DB and will fill the columns -->
         <?php foreach ($teams as $t): ?>
             <?php $rank++ ?>
             <tr class="team-row">
@@ -71,13 +73,13 @@ session_start();
                 <td><?= $t['Conference'];?></td>
                 <td><?= $t['wins'];?></td>
                 <td><?= $t['losses'];?></td>
-                <?php if(isset($_SESSION['user'])): ?>
-                    <a href="edit_TeamWins.php?action=Update&teamID=<?= $t['TeamID']; ?>" class="edit-link">Edit</a>
-                <?php else: ?>
-
-                <?php endif; ?>
+                <?php if(isset($_SESSION['user'])): ?> <!-- When a user logins in this will check it -->
+                    <td><a href="edit_TeamWins.php?action=Update&teamID=<?= $t['TeamID']; ?>" class="edit-link">Edit</a></td><!-- Edit appears be able to change the teams wins or loss -->
+                <?php else: ?> <!-- This could be an error message or a redirect page. -->
+                        <!-- Code -->
+                <?php endif; ?><!-- End statement -->
             </tr>
-        <?php endforeach; ?>
+        <?php endforeach; ?> <!-- End foreach -->
         
         </table>
 

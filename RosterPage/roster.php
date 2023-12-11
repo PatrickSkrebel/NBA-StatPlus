@@ -1,8 +1,10 @@
 
 <?php
+session_start();
 // Assuming you have the $db connection established
 include __DIR__ . '/../include/header.php';
 include __DIR__ . "/Model/db.php";
+include __DIR__ . "/Model/functions.php";
 
 if (isset($_GET['TeamID'])) {
     $selectedTeamId = $_GET['TeamID'];
@@ -19,15 +21,37 @@ if (isset($_GET['TeamID'])) {
     $stmtPlayers->execute();
     $players = $stmtPlayers->fetchAll(PDO::FETCH_ASSOC);
 
-    // Display the roster
-    ?>
+    if(isset($_POST["logoutBtn"])){
+        session_unset(); 
+        session_destroy();
+    }
+
+    if(isset($_POST['deletePlayer'])){
+        $PlayerId = filter_input(INPUT_POST, 'PlayerID');
+        deletePlayer($PlayerId);
+        header('Location: ../StandingsPage/standings.php');
+    }
+?>
+
 
     <h1 class="rosterTitle"><?= $teamInfo['TeamName'] ?> Roster</h1>
     <h2 class="rosterTitle">Conference: <?= $teamInfo['Conference'] ?></h2>
     <ul class="roster">
+        <?php if(isset($_SESSION['user'])): ?>
+                <a href="add_player.php?action=Add&TeamId=<?= $selectedTeamId; ?>" >Add Player</a><br>
+            <?php endif; ?>
+
         <?php foreach ($players as $player): ?>
-            <tr>
-            <td><?= $player['FirstName']?> <?=$player['LastName']?> - [<?=$player['Position'] ?> - <?=$player['Birthdate'] ?>]<td></br>
+            <tr>                
+            <?php if(isset($_SESSION['user'])): ?>
+                <th><?= $player['FirstName']?> <?=$player['LastName']?> - [<?=$player['Position'] ?> - <?=$player['Birthdate'] ?>]<th>
+                <th><input type="submit" name="deletePlayer" value="Delete"/>
+                <th><a href="edit_player.php">Edit</a></th><br>
+
+            <?php else: ?>
+                <th><?= $player['FirstName']?> <?=$player['LastName']?> - [<?=$player['Position'] ?> - <?=$player['Birthdate'] ?>]<th><br>
+            <?php endif; ?>
+
             </tr>
         <?php endforeach; ?>
     </ul>

@@ -6,6 +6,14 @@ include __DIR__ . '/../include/header.php';
 include __DIR__ . "/Model/db.php";
 include __DIR__ . "/Model/functions.php";
 
+
+if(isset($_POST["delete"]))
+
+if(isset($_POST["logoutBtn"])){
+    session_unset(); 
+    session_destroy();
+}
+
 if (isset($_GET['TeamID'])) {
     $selectedTeamId = $_GET['TeamID'];
 
@@ -21,16 +29,7 @@ if (isset($_GET['TeamID'])) {
     $stmtPlayers->execute();
     $players = $stmtPlayers->fetchAll(PDO::FETCH_ASSOC);
 
-    if(isset($_POST["logoutBtn"])){
-        session_unset(); 
-        session_destroy();
-    }
 
-    if(isset($_POST['deletePlayer'])){
-        $PlayerId = filter_input(INPUT_POST, 'PlayerID');
-        deletePlayer($PlayerId);
-        header('Location: ../StandingsPage/standings.php');
-    }
 ?>
 
 
@@ -43,11 +42,11 @@ if (isset($_GET['TeamID'])) {
 
         <?php foreach ($players as $player): ?>
             <tr>                
+            <!-- Onced Logged In -->
             <?php if(isset($_SESSION['user'])): ?>
                 <th><?= $player['FirstName']?> <?=$player['LastName']?> - [<?=$player['Position'] ?> - <?=$player['Birthdate'] ?>]<th>
-                <th><input type="submit" name="deletePlayer" value="Delete"/>
-                <th><a href="edit_player.php">Edit</a></th><br>
-
+                <th><a href="edit_player.php">Edit</a></th>
+                <th><a href="delete_player.php?PlayerID=<?= $player['PlayerID'] ?>">Delete</a></th><br>
             <?php else: ?>
                 <th><?= $player['FirstName']?> <?=$player['LastName']?> - [<?=$player['Position'] ?> - <?=$player['Birthdate'] ?>]<th><br>
             <?php endif; ?>

@@ -78,7 +78,7 @@
     }
     
     // When you have to update a player 
-    function updatePlayer ($PlayerId, $firstName, $lastName,$teamid , $birthdate, $position) {
+    function updatePlayer ($PlayerId, $firstName, $lastName,$teamid, $position) {
         global $db;
 
         $results = "";
@@ -125,9 +125,9 @@
         global $db;
         
         $results = "Data was not deleted";
-        $stmt = $db->prepare("DELETE FROM nbaplayers WHERE PlayerId=:PlayerId"); // calls the sql database
+        $stmt = $db->prepare("DELETE FROM nbaplayers WHERE PlayerID=:PlayerID"); // calls the sql database
         
-        $stmt->bindValue(':PlayerId', $PlayerId); // Grabs the players id in the DB and deletes 
+        $stmt->bindValue(':PlayerID', $PlayerId); // Grabs the players id in the DB and deletes 
             
         if ($stmt->execute() && $stmt->rowCount() > 0) { // If its < 0 then that means it didn't reach the DB and calls nothing
             $results = 'Data Deleted'; // confirms deletions
@@ -136,13 +136,13 @@
         return ($results);
     }
 
-    function getPerson($PlayerId){
+    function getPlayer($PlayerId){
 
         global $db;
         
         $result = [];
-        $stmt = $db->prepare("SELECT * FROM nbaplayers WHERE PlayerId=:PlayerId");
-        $stmt->bindValue(':PlayerId', $PlayerId);
+        $stmt = $db->prepare("SELECT * FROM nbaplayers WHERE PlayerID=:PlayerID");
+        $stmt->bindValue(':PlayerID', $PlayerId);
        
         if ( $stmt->execute() && $stmt->rowCount() > 0 ) {
              $result = $stmt->fetch(PDO::FETCH_ASSOC);

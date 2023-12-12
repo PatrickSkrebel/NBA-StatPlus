@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NFL Teams</title>
+    <title>Editing Players</title>
 </head>
 <body>
 
@@ -17,34 +17,22 @@
     
     $error = "";
 
-    //Delete the record
-    if(isset($_POST['deleteTeam'])){
-        $id = filter_input(INPUT_POST, 'teamId');
-        deletePatient($id);
-        header('Location: index.php');
-    }
 
     $action = "";
     //IF COMING FROM A GET REQUEST, ASSIGN OUR ACTION AND ID!
     if(isset($_GET['action'])){
         $action = filter_input(INPUT_GET, 'action');
-        $id = filter_input(INPUT_GET, 'teamId');
+        $id = filter_input(INPUT_GET, 'PlayerID');
 
         if($action == "Update"){
-            $people = getPerson($id);
-            $fName = $people["firstName"];
-            $lName = $people['lastName'];
-            $married = $people['married'];
-            $birthDate = $people['birthdate'];
-            $height = $people['height'];
-            $weight = $people['weight'];
+            $people = getPlayer($id);
+            $fName = $people["FirstName"];
+            $lName = $people["LastName"];
+            $position = $people["Position"];
         }else{
             $fName = "";
             $lName = "";
-            $married = "";
-            $birthDate = "";
-            $height = "";
-            $weight = "";
+            $position = "";
         }
 
         //UPDATE TEAM WAS SUBMITTED IN FORM -> GRAB SUBMITTED VALUES AND PASS TO THE updateTeam() METHOD!
@@ -54,20 +42,11 @@
         $fName = filter_input(INPUT_POST, 'FirstName');
         $lName = filter_input(INPUT_POST, 'LastName');
         $position = filter_input(INPUT_POST, 'Position');
-        $birthDate = filter_input(INPUT_POST, 'Birthdate');
 
-        updatePatient($id, $fName, $lName, $married, $birthDate, $height, $weight);
+        updatePlayer($id, $fName, $lName, $position);
         header('Location: ../StandingsPage/standings.php');
 
         //ADD TEAM WAS SUBMITTED IN FORM -> GRAB SUBMITTED VALUES AND PASS TO THE addTeam() METHOD!
-    }elseif (isset($_POST['add_player'])){
-        $action = filter_input(INPUT_POST, 'action');
-        $fName = filter_input(INPUT_POST, 'firstName');
-        $lName = filter_input(INPUT_POST, 'lastName');
-        $birthDate = filter_input(INPUT_POST, 'birthdate');
-        
-        addPeople($fName, $lName, $married, $birthDate);
-        header('Location: ../StandingsPage/standings.php');
     }
 
 ?>
@@ -97,7 +76,7 @@
         
         <!--FORM-->
         <div class="wrapper">
-            <input type="hidden" name="PlayerID" value="<?= $id; ?>" />
+            <input type="hidden" name="PlayerID" value="<?= $PlayerId; ?>" />
             <div class="label">
                 <label>First Name:</label>
             </div>
@@ -111,21 +90,27 @@
                 <input type="text" name="LastName" value="<?= $lName; ?>" />
             </div>
             <div class="label">
-                <label>Birthdate:</label>
+                <label>Position</label>
             </div>
             <div>
-                <input type="text" name="Birthdate" value="<?= $birthDate; ?>" />
+                <select id="Position" name="Position">
+                    <option value="Point Guard">Point Guard</option>
+                    <option value="Shooting Guard">Shooting Guard</option>
+                    <option value="Small Forward">Small Forward</option>
+                    <option value="Power Forward">Power Forward</option>
+                    <option value="Center">Center</option>
+                </select>
             </div>
             <div>
                 &nbsp;
             </div>
             <div>
                 <!-- WE CAN USE OUR 'ACTION' VALUE FROM THE GET RESULT TO MANIPULATE THE FORM! -->
-                <input type="submit" name="<?= $action; ?>_team" value="<?= $action; ?> Players Information" />
+                <input type="submit" name="<?= $action; ?>_player" value="<?= $action; ?> Players Information" />
             </div>
             <div>
-                <input type="hidden" name="teamId" value="<?= $id;?>"/>
-                <input type="submit" name="deleteTeam" value="Delete" />
+                <input type="hidden" name="PlayerID" value="<?= $PlayerId;?>"/>
+                <input type="submit" name="deletePlayer" value="Delete" />
             </div>
            
         </div>

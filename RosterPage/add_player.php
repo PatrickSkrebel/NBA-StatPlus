@@ -1,15 +1,14 @@
 <?php
     include __DIR__ . "/model/functions.php";
 
-    $FNameErr = $LNameErr = $PositionErr = $BirthdateErr = "";
-    $FName = $LName = $Position = $Birthdate = "";
+    $FNameErr = $LNameErr = $PositionErr = $BirthdateErr = $pcNews = "";
+    $FName = $LName = $Position = $Birthdate = $pcNews = "";
 
     $fBool = false;
     $lBool = false;
     $posBool = false;
     $birthBool = false;
-
-
+    $pcNews = false;
 
 
     if(isset($_GET["TeamId"])){
@@ -66,6 +65,13 @@
             }
           }
 
+          if(empty($_POST["PCNews"])){
+            $pcNews = "* Must Select How Player Aquire";
+          }else{
+            $pcNews = test_input($_POST["PCNews"]);
+            $pcNews = true;
+        }
+
 
           if($fBool && $lBool && $posBool && $birthBool == true)
           {
@@ -90,50 +96,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Player</title>
+    <style>
+        h1{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .background{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* This ensures the content is centered vertically */
+            margin-bottom: 1000px; /* Remove default margin */
+            background-color: #d3d3d3;
+        
+        }
+        .main-form{
+            background-color: #A5D3CE;
+        }
+    </style>
 </head>
 <body>
-    <h2>Add Player To <?= $teamName ?></h2>
-
-    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-        <input type="hidden" name="TeamId" value="<?= $id; ?>" />
-
-        <div class="wrapper">
-            <div class="label">
-                <label>First Name</label>
-            </div>
-            <div>
-                <input type="text" name="FirstName" value="<?= $FName; ?>"> 
-                <span class="error"><?= $FNameErr;?></span>
-            </div>
-            <div class="label">
-                <label>Last Name</label>
-            </div>
-            <div>
-                <input type="text" name="LastName" value="<?= $LName; ?>">
-                <span class="error"><?= $LNameErr;?></span>
-            </div>
-            <div class="label">
-                <label>Position</label>
-            </div>
-            <div>
-                <select id="Position" name="Position">
-                    <option value="Point Guard">Point Guard</option>
-                    <option value="Shooting Guard">Shooting Guard</option>
-                    <option value="Small Forward">Small Forward</option>
-                    <option value="Power Forward">Power Forward</option>
-                    <option value="Center">Center</option>
-                </select>
-            </div>
-            <div class="label">
-                <label>Birthdate</label>
-            </div>
-            <div>
-                <input type="text" name="Birthdate" value="<?= $Birthdate?>"/>
-                <span class="error"><?= $BirthdateErr;?></span>
-            </div>
-            <div>
-                <input type="submit" name="submit" value="Add Player"/>
-        </div>
+    <form action="../standingsPage/standings.php" method="POST">
+        <button type="submit" name="goToPage">Standings</button>
     </form>
+
+    <h1>Add Player To <?= $teamName ?></h1>
+    
+    <div class="background">
+        <form class="main-form" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <input type="hidden" name="TeamId" value="<?= $id; ?>" />
+
+            <div class="wrapper">
+                <div class="label">
+                </br>
+                    <label>First Name</label>
+                </div>
+                <div>
+                    <input type="text" name="FirstName" value="<?= $FName; ?>"> 
+                    <span class="error"><?= $FNameErr;?></span>
+                </div>
+                <div class="label">
+                </br>
+                    <label>Last Name</label>
+                </div>
+                <div>
+                    <input type="text" name="LastName" value="<?= $LName; ?>">
+                    <span class="error"><?= $LNameErr;?></span>
+                </div>
+                <div class="label">
+                </br>
+                    <label>Position</label>
+                </div>
+                <div>
+                    <select id="Position" name="Position">
+                        <option value="Point Guard">Point Guard</option>
+                        <option value="Shooting Guard">Shooting Guard</option>
+                        <option value="Small Forward">Small Forward</option>
+                        <option value="Power Forward">Power Forward</option>
+                        <option value="Center">Center</option>
+                    </select>
+                </div>
+                <div class="label">
+                </br>
+                    <label>Birthdate</label>
+                </div>
+                <div>
+                    <input type="text" name="Birthdate" value="<?= $Birthdate?>"/>
+                    <span class="error"><?= $BirthdateErr;?></span>
+                </div>
+                <div>
+                </br>
+                    <label>Aquired By</label>
+                </div>
+                <div>
+                    <select id="PCNews" name="PCNews">
+                        <option value="Free Agent">Free Agent</option>
+                        <option value="G-Leauge">G-League</option>
+                    </select>
+                </div>
+                <div>
+                    </br>
+                    <input type="submit" name="submit" value="Add Player"/>
+                </div>
+        </form>
+    </div>
 </body>
 </html>

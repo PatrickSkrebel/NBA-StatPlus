@@ -63,6 +63,7 @@ session_start();
         </thead>
         <tbody>
 
+        
         <!-- The foreach will go through all the data is the DB and will fill the columns -->
         <?php foreach ($teams as $t): ?>
             <?php $rank++ ?>

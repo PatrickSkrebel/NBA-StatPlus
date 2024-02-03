@@ -6,7 +6,7 @@
         $password = filter_input(INPUT_POST, 'password');
     
         $user = login($username, $password);
-        var_dump($user);
+        var_dump($username, $password);
     
         if(count($user)>0){
             echo 'HELLO';

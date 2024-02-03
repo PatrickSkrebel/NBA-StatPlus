@@ -162,7 +162,7 @@
         global $db;
         
         $result = [];
-        $stmt = $db->prepare("SELECT * FROM users WHERE userName=:user AND userPassword=sha1(:pass)");
+        $stmt = $db->prepare("SELECT * FROM users WHERE userName=:user AND userPassword=:pass");
         $stmt->bindValue(':user', $user);
         $stmt->bindValue(':pass', $pass);
        

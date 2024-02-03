@@ -29,12 +29,12 @@
     if(isset($_GET['action'])){
         $action = filter_input(INPUT_GET, 'action');
         $id = filter_input(INPUT_GET, 'teamID');
-        var_dump($action);
-        var_dump($id);
+        //var_dump($action);
+        //var_dump($id);
 
         if($action == "Update"){
             $team = getTeam($id);
-            var_dump($team);
+            //var_dump($team);
             $TeamName = $team["TeamName"];
             $Wins = $team["wins"];
             $Losses = $team["losses"];
@@ -53,7 +53,7 @@
         $Wins = filter_input(INPUT_POST, 'wins');
         $Losses = filter_input(INPUT_POST, 'losses');
 
-        var_dump($id, $TeamName, $Wins, $Losses);
+        //var_dump($id, $TeamName, $Wins, $Losses);
 
         updateTeam($id, $TeamName, $Wins, $Losses);
         header('Location: standings.php');

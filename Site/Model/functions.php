@@ -19,16 +19,6 @@
          return ($results);
     }
 
-    function getTeamName($teamId) {
-        global $db;
-        
-        $stmt = $db->prepare("SELECT TeamName FROM nbateams WHERE TeamID = :TeamID");
-        $stmt->bindParam(':TeamID', $teamId);
-        $stmt->execute();
-    
-        return $stmt->fetchColumn();
-    }
-
     //Add a team to database
     function addPlayer ($firstName, $lastName, $position, $teamid,$birthdate) {
         global $db;
@@ -42,6 +32,7 @@
             ":p" => $position,
             ":h" => $teamid,
             ":bd" => $birthdate,
+
            
         );
         
@@ -51,11 +42,6 @@
         }
         
         return ($results);
-    }
-
-    function tradeReason($EventDescription, )
-    {
-
     }
 
        //Add a team to database
@@ -82,7 +68,7 @@
     }
     
     // When you have to update a player 
-    function updatePlayer ($PlayerId, $firstName, $lastName,$teamid, $position) {
+    function updatePlayer ($PlayerId, $firstName, $lastName,$teamid , $birthdate, $position) {
         global $db;
 
         $results = "";
@@ -125,13 +111,13 @@
     }
 
     // take a player off the roster
-    function deletePlayer ($PlayerId) {
+    function deletePlayers ($PlayerId) {
         global $db;
         
         $results = "Data was not deleted";
-        $stmt = $db->prepare("DELETE FROM nbaplayers WHERE PlayerID=:PlayerID"); // calls the sql database
+        $stmt = $db->prepare("DELETE FROM nbaplayers WHERE PlayerId=:PlayerId"); // calls the sql database
         
-        $stmt->bindValue(':PlayerID', $PlayerId); // Grabs the players id in the DB and deletes 
+        $stmt->bindValue(':PlayerId', $PlayerId); // Grabs the players id in the DB and deletes 
             
         if ($stmt->execute() && $stmt->rowCount() > 0) { // If its < 0 then that means it didn't reach the DB and calls nothing
             $results = 'Data Deleted'; // confirms deletions
@@ -140,13 +126,13 @@
         return ($results);
     }
 
-    function getPlayer($PlayerId){
+    function getPerson($PlayerId){
 
         global $db;
         
         $result = [];
-        $stmt = $db->prepare("SELECT * FROM nbaplayers WHERE PlayerID=:PlayerID");
-        $stmt->bindValue(':PlayerID', $PlayerId);
+        $stmt = $db->prepare("SELECT * FROM nbaplayers WHERE PlayerId=:PlayerId");
+        $stmt->bindValue(':PlayerId', $PlayerId);
        
         if ( $stmt->execute() && $stmt->rowCount() > 0 ) {
              $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -176,7 +162,7 @@
         global $db;
         
         $result = [];
-        $stmt = $db->prepare("SELECT * FROM users WHERE userName=:user AND userPassword=sha1(:pass)");
+        $stmt = $db->prepare("SELECT * FROM users WHERE userName=:user AND userPassword=:pass");
         $stmt->bindValue(':user', $user);
         $stmt->bindValue(':pass', $pass);
        
@@ -191,7 +177,7 @@
 
 
       // Get listing of all Players 
-    function searchTeam ($TeamName, $Conference) {
+    function searchTeam ($TeamName) {
         global $db;
         $binds = array();
 
@@ -202,10 +188,10 @@
             $binds['TeamName'] = '%'.$TeamName.'%';
         }
 
-        if ($Conference != "") {
-            $sql .= " AND Conference LIKE :Conference";
-            $binds['Conference'] = '%'.$Conference.'%';
-        }
+        //if ($Conference != "") {
+            //$sql .= " AND Conference LIKE :Conference";
+//$binds['Conference'] = '%'.$Conference.'%';
+       // }
 
 
         $sql .= " ORDER BY wins DESC";
@@ -220,7 +206,5 @@
 
         return ($results);
     }
-
-
 
 ?>

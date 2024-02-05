@@ -56,7 +56,7 @@
         //var_dump($id, $TeamName, $Wins, $Losses);
 
         updateTeam($id, $TeamName, $Wins, $Losses);
-        header('Location: standings.php');
+        header('Location: standingsPage.php');
 
         //ADD TEAM WAS SUBMITTED IN FORM -> GRAB SUBMITTED VALUES AND PASS TO THE addTeam() METHOD!
     }elseif (isset($_POST['Add_people'])){
@@ -68,7 +68,7 @@
         $birthdate = filter_input(INPUT_POST, 'Birthdate');
         
         addTeam($TeamName, $City,$Conference, $Wins, $Losses);
-        header('Location: standings.php');
+        header('Location: standingsPage.php');
     }
 
 ?>

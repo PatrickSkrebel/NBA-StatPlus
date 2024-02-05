@@ -1,48 +1,42 @@
+<?php
+session_start();
+    include __DIR__ . "/model/functions.php";
 
+    
+    $TeamName = "";
+    $Conference = "";
+    $league = "";
+    
+    
+    if(isset($_GET["Conference"])){
+        $Conference = filter_input(INPUT_GET, "Conference");
+    }
+    
+    if(isset($_GET["East/West"])){
+        $league = filter_input(INPUT_GET, "East/West");
+    }
+    
+    if(isset($_POST["logoutBtn"])){
+        session_unset(); 
+        session_destroy();
+    }
 
-<style>
-    /* Style for the teams dropdown */
-.columnTeams {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
+    $teams = searchConference($Conference);
+    $team = getStandings();
 
-/* Style for each division column */
-.columnTeams {
-    border: 1px solid #ddd; /* Add a border for better separation */
-    padding: 10px;
-    width: 200px;/* Set width for each column, considering 20px margin */
-    box-sizing: border-box;
-}
+    $rank = 0;
 
-/* Style for the headers and clickable options */
-.columnTeams h3, .columnTeams a {
-    display: block;
-    margin-bottom: 8px;
-    text-decoration: none;
-    color: #333;
-}
+    //$people = getPeople();
+?>
 
-.columnTeams a {
-    width: 500%; /* Make each team link take up 100% width within the column */
-}
-
-.columnTeams a:hover {
-    color: #007bff; /* Change the color on hover */
-}
-
- </style>
-
-
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Stats+</title>
+        <title>Blog Post - Start Bootstrap Template</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -52,12 +46,12 @@
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="../Site/Index.php">Stats+</a>
+                <a class="navbar-brand" href="#!">Stat+</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="../Site/Index.php">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="../StandingsPage/standingsPage.php">Standings</a></li>                             
+                    <li class="nav-item"><a class="nav-link" href="../Site/Index.php">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../StandingsPage/standings.php">Standings</a></li>                             
                         <l1 class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 NBA Teams
@@ -153,27 +147,74 @@
                         <!-- Post header-->
                         <header class="mb-4">
                             <!-- Post title-->
-                            <h1 class="fw-bolder mb-1">Today's Stats News</h1>
+                            <h1 class="fw-bolder mb-1">NBA Stangings</h1>
                             <!-- Post meta content-->
                             <!-- <div class="text-muted fst-italic mb-2">Posted on January 1, 2023 by Start Bootstrap</div> -->
-                            <!-- Post categories
-                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
-                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
-                            -->
+                            <!-- Post categories-->
+                            <h2>Selected Conference: <?php echo $Conference; ?></h2>
+
+                            <a class="badge bg-secondary text-decoration-none link-light" href="?East/West=League">League</a>
+                            <a class="badge bg-secondary text-decoration-none link-light" href="?Conference=East">East</a>
+                            <a class="badge bg-secondary text-decoration-none link-light" href="?Conference=West">West</a>
+
+                            
                         </header>
-                        <!-- Preview image figure-->
-                        <figure class="mb-4"><img class="img-fluid rounded" src="https://www.inquirer.com/resizer/uoqT-oMeyFqN9RHap2JQM39U9KE=/760x507/smart/filters:format(webp)/cloudfront-us-east-1.images.arcpublishing.com/pmn/6R25ENZBGU5TYMD6NOMB6U7P3A.jpg" alt="..." /></figure>
+
                         <!-- Post content-->
-                        <section class="mb-5">
-                            <p class="fs-5 mb-4">Reigning MVP Joel Embiid suffered a lateral meniscus “injury” on his left knee and will be out at least through the weekend, the Philadelphia 76ers announced Thursday, placing the defense of his lofty title in jeopardy.</p>
-                            <p class="fs-5 mb-4">Embiid is awaiting further testing to determine whether a tear of the meniscus occurred, and how severe the injury may be, according to sources close to the center.</p>
-                            <p class="fs-5 mb-4">Embiid, who suffered the injury in the fourth quarter of a loss Tuesday against the Golden State Warriors, missed his 13th game Thursday against the Utah Jazz. Per a new league rule, any player who does not play in at least 65 of his team’s 82 regular-season games is ineligible for postseason awards. Embiid will be out for at least two more games, and if his absence extends any further, his MVP defense is over.</p>
-                        <!-- extra lines
-                            <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>                        
-                            <p class="fs-5 mb-4">For me, the most fascinating interface is Twitter. I have odd cosmic thoughts every day and I realized I could hold them to myself or share them with people who might be interested.</p>
-                            <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p>
-                        -->
-                        </section>
+                        <div class="">
+
+<div class="data">
+     <!-- Begin table of teams -->
+     <table class="data">
+    <thead>
+        <tr>           
+            <!-- Display The column rows --> 
+            <th>Rank</th>
+            <th>Team Name</th>
+            <th>City</th>              
+            <th>Conference</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <?php if(isset($_SESSION['user'])): ?>
+                <th>Edit</th>
+                <form method="POST" name="logout" class="logout">
+                    <input type="submit" name="logoutBtn" value="Logout">
+                </form>
+
+            <?php else: ?>
+               
+            <?php endif; ?>
+
+            <!-- make this appear when you log in -->
+        </tr>
+    </thead>
+    <tbody>
+
+    
+    <!-- The foreach will go through all the data is the DB and will fill the columns -->
+    <?php foreach ($teams as $t): ?>
+        <?php $rank++ ?>
+        <tr class="team-row">
+            <td># <?= $rank ?></td>
+            <td><?= $t['TeamName'];?></td>
+            <td><?= $t['City'];?></td>                
+            <td><?= $t['Conference'];?></td>
+            <td><?= $t['wins'];?></td>
+            <td><?= $t['losses'];?></td>
+            <?php if(isset($_SESSION['user'])): ?> <!-- When a user logins in this will check it -->
+                <td><a href="edit_TeamWins.php?action=Update&teamID=<?= $t['TeamID']; ?>" class="edit-link">Edit</a></td><!-- Edit appears be able to change the teams wins or loss -->
+            <?php else: ?> <!-- This could be an error message or a redirect page. -->
+                    <!-- Code -->
+            <?php endif; ?><!-- End statement -->
+        </tr>
+    <?php endforeach; ?> <!-- End foreach -->
+    
+    </table>
+
+    </br>
+    <!--<a href="edit_TeamWins.php?action=Add">Add New Team</a>-->
+</div>
+</div>
                     </article>
                     <!-- Comments section-->
                     <section class="mb-5">
@@ -186,22 +227,22 @@
                                     <!-- Parent comment-->
                                     <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                     <div class="ms-3">
-                                        <div class="fw-bold">LeBron James</div>
-                                        Where are all the media outlets, tv media personalities, hot takes that talked so much 💩 about Joel Embiid about missing those games when he knew what he was dealing with.
+                                        <div class="fw-bold">Commenter Name</div>
+                                        If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
                                         <!-- Child comment 1-->
                                         <div class="d-flex mt-4">
                                             <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                             <div class="ms-3">
-                                                <div class="fw-bold">LeBron James</div>
-                                                Now he’s out with an injury because of it. Not 1 person has went back on tv or their dumbass podcast and apologized to that MAN!! No accountability 🗑️🗑️🗑️
+                                                <div class="fw-bold">Commenter Name</div>
+                                                And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
                                             </div>
                                         </div>
                                         <!-- Child comment 2-->
                                         <div class="d-flex mt-4">
                                             <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                             <div class="ms-3">
-                                                <div class="fw-bold">Random Fan</div>
-                                                Get in the gym buddy ur team is .500
+                                                <div class="fw-bold">Commenter Name</div>
+                                                When you put money directly to a problem, it makes a good headline.
                                             </div>
                                         </div>
                                     </div>
@@ -210,11 +251,8 @@
                                 <div class="d-flex">
                                     <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                     <div class="ms-3">
-                                        <div class="fw-bold">NBA on TNT</div>
-                                        "I feel for the kid... He was the clear cut MVP for this year." 
-
-                                        Shaq's reaction to Joel Embiid's meniscus injury
-                                        <a href="https://twitter.com/i/status/1753218043482648758" target="_blank">Click to watch the video</a>
+                                        <div class="fw-bold">Commenter Name</div>
+                                        When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
                                     </div>
                                 </div>
                             </div>
@@ -235,38 +273,23 @@
                     </div>
                     <!-- Categories widget-->
                     <div class="card mb-4">
-                        <div class="card-header">Hot Topics 🔥</div>
+                        <div class="card-header">Categories</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="#!">MVP-Ladder</a></li>
-                                        <li><a href="#!">All-Stars</a></li>
-                                        <li><a href="#!">Rookie-Race</a></li>
+                                        <li><a href="#!">Web Design</a></li>
+                                        <li><a href="#!">HTML</a></li>
+                                        <li><a href="#!">Freebies</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="#!">Free Agency</a></li>
-                                        <li><a href="#!">BallIsLife</a></li>
-                                        <li><a href="#!">Injuries</a></li>
+                                        <li><a href="#!">JavaScript</a></li>
+                                        <li><a href="#!">CSS</a></li>
+                                        <li><a href="#!">Tutorials</a></li>
                                     </ul>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Side widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Headlines</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <ul class="list-unstyled mb-0">
-                                    <li><a href="#!">Rivers to coach East in NBA All-Star Game</a></li>
-                                    <hr>
-                                    <li><a href="#!">Curry scores 60 with 10 3s in OT loss</a></li>
-                                    <hr>
-                                    <li><a href="#!">Full Focus: LeBron, Lakers snap Knicks' streak</a></li>
-                                </ul>
                             </div>
                         </div>
                     </div>

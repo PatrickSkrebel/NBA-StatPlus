@@ -8,7 +8,7 @@
         
         $results = []; // 
 
-        $stmt = $db->prepare("SELECT PlayerId, Team, lastName, birthdate, teamid,position, wins, losses FROM people ORDER BY PlayerId"); // sends the code to my sql 
+        $stmt = $db->prepare("SELECT * FROM nbateams ORDER BY win_percentage desc"); // sends the code to my sql 
         
         if ( $stmt->execute() && $stmt->rowCount() > 0 ) // Checks for errors when the database doesnt find a 1 of the description
         {
@@ -177,7 +177,7 @@
 
 
       // Get listing of all Players 
-    function searchTeam ($TeamName, $Conference) {
+    function searchTeams ($TeamName, $Conference) {
         global $db;
         $binds = array();
 
@@ -194,7 +194,7 @@
         }
 
 
-        $sql .= " ORDER BY wins DESC";
+        $sql .= " ORDER BY win_percentage DESC";
 
         $results = array();
 
@@ -207,4 +207,29 @@
         return ($results);
     }
 
+    function searchConference ($Conference)
+    {
+        global $db;
+        $binds = array();
+
+        $sql =  "SELECT * FROM nbateams WHERE 0=0";
+
+
+        if ($Conference != "") {
+            $sql .= " AND Conference LIKE :Conference";
+            $binds['Conference'] = '%'.$Conference.'%';
+        }
+
+        $sql .= " ORDER BY win_percentage DESC";
+
+        $results = array();
+
+        $stmt = $db->prepare($sql);
+
+        if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        return ($results);
+    }
 ?>

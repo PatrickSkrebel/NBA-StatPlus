@@ -12,7 +12,7 @@
             echo 'HELLO';
             session_start();
             $_SESSION['user']=$username;
-            header('Location: standings.php');
+            header('Location: standingsPage.php');
         }else{
             session_unset(); 
         }

@@ -2,9 +2,9 @@
 <?php
 session_start();
 // Assuming you have the $db connection established
-include __DIR__ . '/../include/header.php';
 include __DIR__ . "/Model/db.php";
 include __DIR__ . "/Model/functions.php";
+include __DIR__ . '/../include/header.php';
 
 
 if(isset($_POST["delete"]))
@@ -31,6 +31,13 @@ if (isset($_GET['TeamID'])) {
 
 
 ?>
+<style>
+    .roster{
+        text-align: center;
+    }
+</style>
+
+<div class="roster">
 
 
     <h1 class="rosterTitle"><?= $teamInfo['TeamName'] ?> Roster</h1>
@@ -54,7 +61,7 @@ if (isset($_GET['TeamID'])) {
             </tr>
         <?php endforeach; ?>
     </ul>
-
+    </div>
     <?php
 } else {
     // Redirect back to the main page if teamid is not set

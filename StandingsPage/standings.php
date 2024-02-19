@@ -1,92 +1,62 @@
 <?php
-session_start();
-    include __DIR__ . "/model/functions.php";
-    include __DIR__ . '/../include/header.php';
+// API endpoint URL
+$apiUrl = 'https://api.sportradar.com/nba';
 
-    if(isset($_POST["searchBtn"])){
-        $TeamName = filter_input(INPUT_POST, "TeamName");
-        $Conference = filter_input(INPUT_POST, "Conference");
+// Initialize cURL session
+$ch = curl_init();
 
-    }else{
-        $TeamName = "";
-        $Conference = "";
-    }
+// Set cURL options
+curl_setopt($ch, CURLOPT_URL, $apiUrl); // Set the URL to fetch
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the response as a string instead of outputting it directly
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'x-rapidapi-host: v1.basketball.api-sports.io',
+    'x-rapidapi-key: YOUR_API_KEY' // Replace YOUR_API_KEY with your actual API key
+]);
 
-    if(isset($_POST["logoutBtn"])){
-        session_unset(); 
-        session_destroy();
-    }
+// Execute the cURL request
+$response = curl_exec($ch);
 
-    $teams = searchTeam($TeamName, $Conference);
+// Check for errors
+if(curl_errno($ch)) {
+    echo 'Error: ' . curl_error($ch);
+} else {
+    // API response received successfully
+    // You can now process the response data
+    $responseData = json_decode($response, true); // Assuming the API returns JSON data
 
-    $rank = 0;
-
-    //$people = getPeople();
-?>
-
-    <div class="container">
-
-    <div class="data">
-
-        <h1>NBA Standings</h1>
-
-
-        <form method="POST" name="search">
-            <label>Team</label><input type="text" name="TeamName">
-            <label>Conference</label><input type="text" name="Conference">
-            <input type="submit" name="searchBtn" value="Search">
-        </form>
-
-         <!-- Begin table of teams -->
-         <table class="data">
-        <thead>
-            <tr>           
-                <!-- Display The column rows --> 
-                <th>Rank</th>
-                <th>TeamName</th>
-                <th>City</th>              
-                <th>Conference</th>
-                <th>Wins</th>
-                <th>Losses</th>
-                <?php if(isset($_SESSION['user'])): ?>
-                    <th>Edit</th>
-                    <form method="POST" name="logout" class="logout">
-                        <input type="submit" name="logoutBtn" value="Logout">
-                    </form>
-
-                <?php else: ?>
-                   
-                <?php endif; ?>
-
-                <!-- make this appear when you log in -->
-            </tr>
-        </thead>
-        <tbody>
-
-        
-        <!-- The foreach will go through all the data is the DB and will fill the columns -->
-        <?php foreach ($teams as $t): ?>
-            <?php $rank++ ?>
-            <tr class="team-row">
-                <td># <?= $rank ?></td>
-                <td><?= $t['TeamName'];?></td>
-                <td><?= $t['City'];?></td>                
-                <td><?= $t['Conference'];?></td>
-                <td><?= $t['wins'];?></td>
-                <td><?= $t['losses'];?></td>
-                <?php if(isset($_SESSION['user'])): ?> <!-- When a user logins in this will check it -->
-                    <td><a href="edit_TeamWins.php?action=Update&teamID=<?= $t['TeamID']; ?>" class="edit-link">Edit</a></td><!-- Edit appears be able to change the teams wins or loss -->
-                <?php else: ?> <!-- This could be an error message or a redirect page. -->
-                        <!-- Code -->
-                <?php endif; ?><!-- End statement -->
-            </tr>
-        <?php endforeach; ?> <!-- End foreach -->
-        
+    // Check if data is received
+    if ($responseData && isset($responseData['response']) && isset($responseData['response'][0]['teams'])) {
+        ?>
+        <!-- Begin table of teams -->
+        <table class="data">
+            <thead>
+                <tr>           
+                    <!-- Display The column rows --> 
+                    <th>Team Name</th>
+                    <th>Country</th>
+                    <th>City</th>
+                    <th>Conference</th>
+                    <th>Division</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($responseData['response'][0]['teams'] as $team): ?>
+                <tr class="team-row">
+                    <td><?= $team['name']; ?></td>
+                    <td><?= $team['country']['name']; ?></td>
+                    <td><?= $team['venue']['city']; ?></td>
+                    <td><?= $team['conference']['name']; ?></td>
+                    <td><?= $team['division']['name']; ?></td>
+                </tr>
+            <?php endforeach; ?> <!-- End foreach -->
+            </tbody>
         </table>
+        <?php
+    } else {
+        echo "No data retrieved from the API.";
+    }
+}
 
-        </br>
-        <!--<a href="edit_TeamWins.php?action=Add">Add New Team</a>-->
-    </div>
-    </div>
-</body>
-</html>
+// Close cURL session
+curl_close($ch);
+?>

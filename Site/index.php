@@ -2,40 +2,6 @@
 include __DIR__ . '/../include/header.php'; 
 ?>
 
-<style>
-    /* Style for the teams dropdown */
-.columnTeams {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-/* Style for each division column */
-.columnTeams {
-    border: 1px solid #ddd; /* Add a border for better separation */
-    padding: 10px;
-    width: 200px;/* Set width for each column, considering 20px margin */
-    box-sizing: border-box;
-}
-
-/* Style for the headers and clickable options */
-.columnTeams h3, .columnTeams a {
-    display: block;
-    margin-bottom: 8px;
-    text-decoration: none;
-    color: #333;
-}
-
-.columnTeams a {
-    width: 500%; /* Make each team link take up 100% width within the column */
-}
-
-.columnTeams a:hover {
-    color: #007bff; /* Change the color on hover */
-}
-
- </style>
         <!-- Page content-->
         <div class="container mt-5">
             <div class="row">

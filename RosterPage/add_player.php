@@ -77,7 +77,7 @@
           {
               addPlayer($FName, $LName, $Position, $id, $Birthdate);
 
-              header('Location: ../StandingsPage/standings.php');
+              header('Location: ../StandingsPage/standingsPage.php');
           }
     }
 
@@ -117,7 +117,7 @@
     </style>
 </head>
 <body>
-    <form action="../standingsPage/standings.php" method="POST">
+    <form action="../standingsPage/standingsPage.php" method="POST">
         <button type="submit" name="goToPage">Standings</button>
     </form>
 

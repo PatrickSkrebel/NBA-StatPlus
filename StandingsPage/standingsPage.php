@@ -1,3 +1,56 @@
+<style>
+   .east-button {
+        background-color: #007BFF; /* Blue background */
+        color: white; /* Readable text color */
+        padding: 5px 10px; /* Padding around text */
+        border: none; /* No border */
+        cursor: pointer; /* Cursor changes to pointer to indicate it's clickable */
+        transition: background-color 0.3s; /* Smooth transition for background color */
+        border-radius: 5px; /* Slightly rounded corners */
+        text-decoration: none; /* Remove underline */
+    }
+
+    .east-button:hover {
+        background-color: #0056b3; /* Lighten up the background color on hover */
+    }
+
+    .west-button {
+        background-color: #FF4136; /* Red background */
+        color: white; /* Readable text color */
+        padding: 5px 10px; /* Padding around text */
+        border: none; /* No border */
+        cursor: pointer; /* Cursor changes to pointer to indicate it's clickable */
+        transition: background-color 0.3s; /* Smooth transition for background color */
+        border-radius: 5px; /* Slightly rounded corners */
+        text-decoration: none; /* Remove underline */
+    }
+
+    .west-button:hover {
+        background-color: #B6143E; /* Lighten up the background color on hover */
+    }
+
+    .league-button {
+        /* Diagonal gradient from bottom-left to top-right */
+        background: linear-gradient(to top right, #007BFF 50%, #FF4136 50%);
+        color: white; /* Readable text color */
+        padding: 5px 10px; /* Padding around text */
+        border: none; /* No border */
+        cursor: pointer; /* Cursor changes to pointer to indicate it's clickable */
+        transition: background-color 0.3s; /* Transition effect */
+        border-radius: 5px; /* Slightly rounded corners */
+        font-size: 16px; /* Text size */
+        text-align: center; /* Ensure text is centered */
+        display: inline-block; /* Needed to apply the gradient properly */
+        text-decoration: none; /* Remove underline */
+    }
+
+    .league-button:hover {
+        /* Lighten the colors on hover with the same diagonal direction */
+        background: linear-gradient(to top right, #3399ff 50%, #ff6347 50%);
+    }
+</style>
+
+<!-- main php scripts -->
 <?php
 session_start();
     include __DIR__ . "/model/functions.php";
@@ -11,10 +64,12 @@ session_start();
     if(isset($_GET["Conference"])){
         $Conference = filter_input(INPUT_GET, "Conference");
     }
+
     
     if(isset($_GET["East/West"])){
         $league = filter_input(INPUT_GET, "East/West");
     }
+
     
     if(isset($_POST["logoutBtn"])){
         session_unset(); 
@@ -28,6 +83,8 @@ session_start();
 
     //$people = getPeople();
 ?>
+
+
 
         <!-- Page content-->
         <div class="container mt-5">
@@ -44,11 +101,9 @@ session_start();
                             <!-- Post categories-->
                             <h2>Selected Conference: <?php echo $Conference; ?></h2>
 
-                            <a class="badge bg-secondary text-decoration-none link-light" href="?East/West=League">League</a>
-                            <a class="badge bg-secondary text-decoration-none link-light" href="?Conference=East">East</a>
-                            <a class="badge bg-secondary text-decoration-none link-light" href="?Conference=West">West</a>
-
-                            
+                            <a class="league-button" href="?East/West=League">League</a>
+                            <a class="east-button" href="?Conference=East" >East</a>
+                            <a class="west-button" href="?Conference=West" >West</a>                            
                         </header>
 
                         <!-- Post content-->
@@ -68,10 +123,6 @@ session_start();
             <th>Losses</th>
             <?php if(isset($_SESSION['user'])): ?>
                 <th>Edit</th>
-                <form method="POST" name="logout" class="logout">
-                    <input type="submit" name="logoutBtn" value="Logout">
-                </form>
-
             <?php else: ?>
                
             <?php endif; ?>
@@ -82,11 +133,13 @@ session_start();
     <tbody>
 
     
-    <!-- The foreach will go through all the data is the DB and will fill the columns -->
+
+
     <?php foreach ($teams as $t): ?>
+        
         <?php $rank++ ?>
-        <tr class="team-row">
-            <td># <?= $rank ?></td>
+        <tr class="team-row">     
+            <td> <?= $rank ?></td>   
             <td><?= $t['TeamName'];?></td>
             <td><?= $t['City'];?></td>                
             <td><?= $t['Conference'];?></td>
@@ -152,6 +205,23 @@ session_start();
                 </div>
                 <!-- Side widgets-->
                 <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-header">User Info</div>
+                        <div class="card-body">
+                            <div class="input-group">                                
+                                <?php if(isset($_SESSION['user'])): ?>
+                                    <form method="POST" name="logout" class="logout">
+                                        <input type="submit" name="logoutBtn" value="Logout">
+                                    </form>
+
+                                <?php else: ?>
+                                    <button class="nav-item"><a class="nav-link" href="../StandingsPage/login.php">Login</a></button>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                  
                     <!-- Search widget-->
                     <div class="card mb-4">
                         <div class="card-header">Search</div>

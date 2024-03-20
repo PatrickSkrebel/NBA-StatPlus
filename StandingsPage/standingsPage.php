@@ -1,5 +1,39 @@
 <!-- For Stlying on this page only -->
 <style>
+
+    /* styles the table */
+    .data {
+        width: 100%;
+        border-collapse: collapse; /* Collapses the border */
+    }
+
+    .data, .data th, .data td {
+        border: 1px solid #ddd; /* Adds border to table, th, and td */
+    }
+
+    .data th, .data td {
+        padding: 8px; /* Adds padding inside each th and td */
+        text-align: left; /* Aligns text to the left */
+    }
+
+    .data th {
+        background-color: #f2f2f2; /* Sets background color for the header */
+        color: #333; /* Sets text color for the header */
+    }
+
+    .data tr:nth-child(even) {
+        background-color: #f9f9f9; /* Sets background color for even rows */
+    }
+
+    .data tr:hover {
+        background-color: #eaeaea; /* Adds a hover effect for rows */
+    }
+
+    /* user style */
+    .user-gap{
+        margin-right: 10px;
+    }
+
    .east-button {
         background-color: #007BFF; /* Blue background */
         color: white; /* Readable text color */
@@ -54,6 +88,7 @@
 <!-- main php scripts -->
 <?php
 session_start();
+
     include __DIR__ . "/model/functions.php";
     include __DIR__ . '/../include/header.php'; 
     
@@ -122,6 +157,7 @@ session_start();
             <th>Conference</th>
             <th>Wins</th>
             <th>Losses</th>
+            <th>Pct</th>
             <?php if(isset($_SESSION['user'])): ?>
                 <th>Edit</th>
             <?php else: ?>
@@ -146,11 +182,13 @@ session_start();
             <td><?= $t['Conference'];?></td>
             <td><?= $t['wins'];?></td>
             <td><?= $t['losses'];?></td>
+            <td><?= $t['win_percentage'];?></td>
             <?php if(isset($_SESSION['user'])): ?> <!-- When a user logins in this will check it -->
                 <td><a href="edit_TeamWins.php?action=Update&teamID=<?= $t['TeamID']; ?>" class="edit-link">Edit</a></td><!-- Edit appears be able to change the teams wins or loss -->
             <?php else: ?> <!-- This could be an error message or a redirect page. -->
                     <!-- Code -->
             <?php endif; ?><!-- End statement -->
+
         </tr>
     <?php endforeach; ?> <!-- End foreach -->
     
@@ -216,7 +254,8 @@ session_start();
                                     </form>
 
                                 <?php else: ?>
-                                    <button class="nav-item"><a class="nav-link" href="../StandingsPage/login.php">Login</a></button>
+                                    <button class="user-gap"><a class="nav-link" href="../User/login.php">Login</a></button>
+                                    <button class="nav-item"><a class="nav-link" href="../User/signup.php">Sign Up</a></button>
                                 <?php endif; ?>
                             </div>
                         </div>

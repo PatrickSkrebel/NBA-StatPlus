@@ -1,5 +1,5 @@
 <?php
-    include __DIR__ . "/model/functions.php"; 
+    include __DIR__ . "/Model/functions.php";
 
     if (isset($_POST['login'])) {
         $username = filter_input(INPUT_POST, 'username');
@@ -11,7 +11,7 @@
             echo 'HELLO';
             session_start();
             $_SESSION['user']=$username;
-            header('Location: standingsPage.php');
+            header('Location: ../StandingsPage/standingsPage.php');
         }else{
             session_unset(); 
         }
@@ -35,12 +35,11 @@
 </head>
 <style>
         body{
-            width:470px;
-            height: 240px;
-            display: grid;
-            place-content: center;
-            margin-top: 80px;
-            margin-left: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0; /* Removes default body margin */
         }
 
         form{
@@ -99,8 +98,7 @@
         <input type="password" name="password" value="<?= $password; ?>" />
         <p><a href="#">Forgot password?</a></p>
         <input type="submit" name="login" value="Login" />
-        <p>Don't have an account?<a href="#">Register</a></p>
-       
+        <p>Don't have an account?<a href="signup.php"> Signup</a></p>
     </form>
     
 </body>

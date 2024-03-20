@@ -33,7 +33,7 @@ include __DIR__ . '/../include/header.php';
                         -->
                         </section>
                     </article>
-               
+                    <!-- This is grom giscos.com that connects to github for comments -->
                     <script src="https://giscus.app/client.js"
                         data-repo="PatrickSkrebel/NBA-StatPlus"
                         data-repo-id="R_kgDOK1o1kw"

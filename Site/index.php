@@ -33,51 +33,24 @@ include __DIR__ . '/../include/header.php';
                         -->
                         </section>
                     </article>
-                    <!-- Comments section-->
-                    <section class="mb-5">
-                        <div class="card bg-light">
-                            <div class="card-body">
-                                <!-- Comment form-->
-                                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
-                                <!-- Comment with nested comments-->
-                                <div class="d-flex mb-4">
-                                    <!-- Parent comment-->
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">LeBron James</div>
-                                        Where are all the media outlets, tv media personalities, hot takes that talked so much 💩 about Joel Embiid about missing those games when he knew what he was dealing with.
-                                        <!-- Child comment 1-->
-                                        <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">LeBron James</div>
-                                                Now he’s out with an injury because of it. Not 1 person has went back on tv or their dumbass podcast and apologized to that MAN!! No accountability 🗑️🗑️🗑️
-                                            </div>
-                                        </div>
-                                        <!-- Child comment 2-->
-                                        <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">Random Fan</div>
-                                                Get in the gym buddy ur team is .500
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single comment-->
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">NBA on TNT</div>
-                                        "I feel for the kid... He was the clear cut MVP for this year." 
+               
+                    <script src="https://giscus.app/client.js"
+                        data-repo="PatrickSkrebel/NBA-StatPlus"
+                        data-repo-id="R_kgDOK1o1kw"
+                        data-category="General"
+                        data-category-id="DIC_kwDOK1o1k84CeF8v"
+                        data-mapping="pathname"
+                        data-strict="0"
+                        data-reactions-enabled="1"
+                        data-emit-metadata="0"
+                        data-input-position="bottom"
+                        data-theme="preferred_color_scheme"
+                        data-lang="en"
+                        crossorigin="anonymous"
+                        async>
+                    </script>
+                <p>Only Users Who Have A GitHub Can Comment</p>
 
-                                        Shaq's reaction to Joel Embiid's meniscus injury
-                                        <a href="https://twitter.com/i/status/1753218043482648758" target="_blank">Click to watch the video</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
                 </div>
                 <!-- Side widgets-->
                 <div class="col-lg-4">

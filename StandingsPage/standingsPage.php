@@ -1,3 +1,4 @@
+<!-- For Stlying on this page only -->
 <style>
    .east-button {
         background-color: #007BFF; /* Blue background */

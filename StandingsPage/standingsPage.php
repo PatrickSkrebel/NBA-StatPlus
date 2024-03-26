@@ -104,6 +104,7 @@ session_start();
     
     if(isset($_GET["East/West"])){
         $league = filter_input(INPUT_GET, "East/West");
+
     }
 
     
@@ -135,7 +136,7 @@ session_start();
                             <!-- Post meta content-->
                             <!-- <div class="text-muted fst-italic mb-2">Posted on January 1, 2023 by Start Bootstrap</div> -->
                             <!-- Post categories-->
-                            <h2>Selected Conference: <?php echo $Conference; ?></h2>
+                            <!--<h2>Selected Conference: League <?php echo $Conference; ?></h2>-->
 
                             <a class="league-button" href="?East/West=League">League</a>
                             <a class="east-button" href="?Conference=East" >East</a>

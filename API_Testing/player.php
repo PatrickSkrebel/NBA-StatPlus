@@ -60,7 +60,7 @@ curl_close($ch);
 $ch = curl_init();
 
 // Set the URL and other options
-//Call the players API passing in the team ID parameter to grab the roster
+//Call the season averages API passing in the player ID parameter to grab the roster (season parameter is required, and is hardcoded to 2023 in this example)
 curl_setopt($ch, CURLOPT_URL, "https://api.balldontlie.io/v1/season_averages?season=2023&player_ids[]=" . $playerId);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
@@ -85,11 +85,12 @@ if (curl_errno($ch)) {
         //var_dump($player);
         echo "<hr />";
         echo "<h4>"; // Using paragraph for better control, replace <td> with <p>
-        echo "Season Averages ( " . htmlspecialchars($season_avg['season']) . "):";
+        echo "Season Averages (" . htmlspecialchars($season_avg['season']) . "):";
         echo "</h4>";
 
         echo "<ul style='list-style-type:none; padding:0;'>";
         echo "<li><span style='font-weight:700;'>Games Played: </span>" . htmlspecialchars($season_avg['games_played']) . "</li>";
+        echo "<li><span style='font-weight:700;'>Minutes: </span>" . htmlspecialchars($season_avg['min']) . "</li>";
         echo "<li><span style='font-weight:700;'>Points: </span>" . htmlspecialchars($season_avg['pts']) . "</li>";
         echo "<li><span style='font-weight:700;'>Field Goal %: </span>" . htmlspecialchars($season_avg['fg_pct']) . "</li>";
         echo "<li><span style='font-weight:700;'>Field Goal (3) %: </span>" . htmlspecialchars($season_avg['fg3_pct']) . "</li>";

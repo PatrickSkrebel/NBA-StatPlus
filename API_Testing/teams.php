@@ -27,7 +27,7 @@ if (curl_errno($ch)) {
 
     echo '<div style="text-align: center; margin: 2rem 0;">'; // Start of centering div
 
-    // Iterate over the 'data' array and print each team's name, limit to first 30
+    // Iterate over the 'data' array and print each team's name
     foreach ($data['data'] as $team) {
         echo "<a href='../API_Testing/players.php?teamId=" . htmlspecialchars($team['id']) . "'>"; // Using paragraph for better control, replace <td> with <p>
         echo htmlspecialchars($team['full_name']) . "<br>";
